@@ -114,6 +114,18 @@ jQuery.fn.springy = function(params) {
 		dragged = null;
 	});
 
+    jQuery(canvas).dblclick(function(e){
+        jQuery('.actions').hide();
+
+        var pos = jQuery(this).offset();
+        var p = fromScreen({x: e.pageX - pos.left, y: e.pageY - pos.top});
+        selected = nearest = dragged = layout.nearest(p);
+
+        if (selected.node !== null && selected.node.data.href) {
+            window.location.href = selected.node.data.href;
+        }
+    });
+
 	Springy.Node.prototype.getWidth = function() {
 		var text = typeof(this.data.label) !== 'undefined' ? this.data.label : this.id;
 		if (this._width && this._width[text])
